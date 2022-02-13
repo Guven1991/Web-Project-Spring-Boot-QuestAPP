@@ -3,6 +3,7 @@ package com.guven.webprojectspringboot.controllers;
 import com.guven.webprojectspringboot.entities.Post;
 import com.guven.webprojectspringboot.requests.PostCreateRequest;
 import com.guven.webprojectspringboot.requests.PostUpdateRequest;
+import com.guven.webprojectspringboot.response.PostResponse;
 import com.guven.webprojectspringboot.services.PostService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +18,13 @@ public class PostController {
     private PostService postService;
 
     public PostController(PostService postService) {
+
         this.postService = postService;
     }
 
     //hem userId ye göre gelen postlar hemde tüm postlar için kontroller
     @GetMapping
-    public List<Post> getAllPosts(@RequestParam Optional<Long> userId) {
+    public List<PostResponse> getAllPosts(@RequestParam Optional<Long> userId) {
         return postService.getAllPosts(userId);
     }
 
@@ -43,7 +45,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{postId}")
-    public void deleteOnePost(@PathVariable Long postId){
-    postService.deleteOnePost(postId);
+    public void deleteOnePost(@PathVariable Long postId) {
+        postService.deleteOnePost(postId);
     }
 }

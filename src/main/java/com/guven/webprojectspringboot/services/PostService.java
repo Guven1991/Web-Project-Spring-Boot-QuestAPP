@@ -5,10 +5,12 @@ import com.guven.webprojectspringboot.entities.User;
 import com.guven.webprojectspringboot.repos.PostRepository;
 import com.guven.webprojectspringboot.requests.PostCreateRequest;
 import com.guven.webprojectspringboot.requests.PostUpdateRequest;
+import com.guven.webprojectspringboot.response.PostResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -22,12 +24,13 @@ public class PostService {
         this.userService =userService;
     }
 
-    public List<Post> getAllPosts(Optional<Long> userId) {
+    public List<PostResponse> getAllPosts(Optional<Long> userId) {
+        List<Post> list;
         if (userId.isPresent()) {
-            return postRepository.findByUserId(userId.get());
+            list = postRepository.findByUserId(userId.get());
         }
-        return postRepository.findAll();
-
+        list = postRepository.findAll();
+         return list.stream().map(PostResponse::new).collect(Collectors.toList());
     }
 
     public Post getOnePost(Long postId) {

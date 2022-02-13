@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class Comment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)  //ilgili posttu çektiğimde ilgili useri bana getirmene gerek yok
