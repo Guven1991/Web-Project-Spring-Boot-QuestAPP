@@ -2,6 +2,7 @@ package com.guven.webprojectspringboot.controllers;
 
 import com.guven.webprojectspringboot.entities.User;
 import com.guven.webprojectspringboot.repos.UserRepository;
+import com.guven.webprojectspringboot.response.UserResponse;
 import com.guven.webprojectspringboot.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,9 +30,9 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public User getOneUser(@PathVariable Long userId) {
+    public UserResponse getOneUser(@PathVariable Long userId) {
         //custom exception
-        return userService.getOneUser(userId);
+        return new UserResponse(userService.getOneUser(userId));
     }
 
     @PutMapping("/{userId}")
@@ -42,6 +43,11 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public void deleteOneUser(@PathVariable Long userId) {
         userService.deleteOneUser(userId);
+    }
+
+    @GetMapping("/activity/{userId}")
+    public List<Object> getUserActivity(@PathVariable Long userId){
+        return userService.getUserActivity(userId);
     }
 
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "post")
@@ -24,6 +25,9 @@ public class Post {
 
     @Column(length = 1000)
     String text;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    Date createDate;
 
 
 }

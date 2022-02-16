@@ -1,9 +1,6 @@
 package com.guven.webprojectspringboot.services;
-
-import com.guven.webprojectspringboot.entities.Like;
 import com.guven.webprojectspringboot.entities.Post;
 import com.guven.webprojectspringboot.entities.User;
-import com.guven.webprojectspringboot.repos.LikeRepository;
 import com.guven.webprojectspringboot.repos.PostRepository;
 import com.guven.webprojectspringboot.requests.PostCreateRequest;
 import com.guven.webprojectspringboot.requests.PostUpdateRequest;
@@ -12,6 +9,7 @@ import com.guven.webprojectspringboot.response.PostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,6 +47,12 @@ public class PostService {
         return  postRepository.findById(postId).orElse(null);
     }
 
+    public PostResponse getOnePostByIdWithLikes(Long postId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        List<LikeResponse> likes = likeService.getAllLikesWithParam(Optional.ofNullable(null), Optional.of(postId));
+        return new PostResponse(post, likes);
+    }
+
 
     public Post createOnePost(PostCreateRequest postCreateRequest) {
         User dbUser = userService.getOneUser(postCreateRequest.getUserId());
@@ -60,6 +64,7 @@ public class PostService {
         toSave.setText(postCreateRequest.getText());
         toSave.setTitle(postCreateRequest.getTitle());
         toSave.setUser(dbUser);
+        toSave.setCreateDate(new Date());
         return postRepository.save(toSave);
     }
 

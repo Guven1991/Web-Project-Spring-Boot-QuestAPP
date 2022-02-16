@@ -1,6 +1,7 @@
 package com.guven.webprojectspringboot.entities;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 
@@ -14,4 +15,5 @@ public class User {
     Long id;
     String username;
     String password;
+    int avatar;
 }

@@ -10,6 +10,7 @@ import org.hibernate.sql.Delete;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +52,7 @@ public class CommentService {
            commentToSave.setPost(dbPost);
            commentToSave.setUser(dbUser);
            commentToSave.setText(commentCreateRequest.getText());
+           commentToSave.setCreateDate(new Date());
            return commentRepository.save(commentToSave);
         }else
             return null;

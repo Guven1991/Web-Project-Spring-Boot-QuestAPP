@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalLong;
 
 @RestController
 @RequestMapping("/posts")
@@ -29,8 +28,8 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public Post getOnePost(@PathVariable Long postId) {
-        return postService.getOnePost(postId);
+    public PostResponse getOnePost(@PathVariable Long postId) {
+        return postService.getOnePostByIdWithLikes(postId);
     }
 
     //Post oluşturulurken user aihtiyac duyduğu için requestte onunu user ıd sini de katarak yolluyoruz
